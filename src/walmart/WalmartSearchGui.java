@@ -20,6 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class WalmartSearchGui extends JFrame {
 
@@ -35,6 +37,8 @@ public class WalmartSearchGui extends JFrame {
 	private JPanel topPanel, bottomPanel, centerPanel, searchPanel, productDetails, resultsPanel;
 	private LineBorder border;
 	private ImageIcon logo;
+	private Item[] items;
+	private int index;
 
 	public WalmartSearchGui() {
 		setTitle("Walmart Search");
@@ -52,7 +56,6 @@ public class WalmartSearchGui extends JFrame {
 
 		// CENTER
 		centerPanel = new JPanel();
-		// centerPanel.setLayout(new GridLayout(1, 2));
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
 		centerPanel.setBackground(lightBlue);
 
@@ -79,6 +82,26 @@ public class WalmartSearchGui extends JFrame {
 		resultsList.setLayoutOrientation(JList.VERTICAL);
 		resultsList.setVisibleRowCount(-1);
 
+		// set details when item in list is clicked:
+		index = resultsList.getSelectedIndex();
+
+		resultsList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent le) {
+
+				if (index != -1 && !le.getValueIsAdjusting()) {
+					description.setText("Description: " + items[index].getShortDescription());
+					available.setText("Available: " + items[index].getAvailableOnline());
+					price.setText("Price: $" + items[index].getSalePrice());
+
+				} else if (index == -1) {
+					description.setText("list selection not working properly");
+				}
+
+			}
+		});
+
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
 		description = new JTextArea("Description: ");
@@ -93,10 +116,8 @@ public class WalmartSearchGui extends JFrame {
 		productDetails.add(description);
 		productDetails.add(available);
 		productDetails.add(price);
-
 		resultsPanel.add(resultsList);
 		resultsPanel.add(productDetails);
-
 		centerPanel.add(resultsPanel);
 
 		container.add(centerPanel, BorderLayout.CENTER);
@@ -128,13 +149,14 @@ public class WalmartSearchGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				// reset old searches
+				resultsListModel.clear();
+
 				description.setText("Description: ");
 				price.setText("Price: ");
 				available.setText("Available: ");
 
-				// get a new search result list
-				SearchThread thread = new SearchThread(searchInput, resultsList, resultsListModel, description, price,
-						available);
+				// get a new search result list, set items.
+				Thread thread = new SearchThread(searchInput, resultsListModel, items);
 				thread.start();
 
 			}
@@ -158,7 +180,7 @@ public class WalmartSearchGui extends JFrame {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 
 				// add to the list
 				shoppingListModel.addElement(resultsList.getSelectedValue());
