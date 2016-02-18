@@ -106,27 +106,6 @@ public class WalmartSearchGui extends JFrame {
 			}
 		});
 
-		/**
-		 * resultsList.addListSelectionListener(new ListSelectionListener() {
-		 * 
-		 * @Override public void valueChanged(ListSelectionEvent le) {
-		 * 
-		 *           index = resultsList.getSelectedIndex();
-		 * 
-		 *           if (index != -1 && !le.getValueIsAdjusting()) {
-		 * 
-		 *           description.setText("Description: " +
-		 *           items[index].getShortDescription()); available.setText(
-		 *           "Available: " + items[index].getAvailableOnline());
-		 *           price.setText("Price: $" + items[index].getSalePrice());
-		 * 
-		 *           } else if (index == -1) { description.setText(
-		 *           "list selection not working properly"); }
-		 * 
-		 *           } });
-		 * 
-		 */
-
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
 		description = new JTextArea("Description: ");
