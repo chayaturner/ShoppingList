@@ -28,7 +28,7 @@ public class WalmartSearchGui extends JFrame {
 	private static final long serialVersionUID = 1L; // default
 
 	private JLabel search, logoLabel;
-	private JTextArea description, price, available;
+	private JTextArea description, price, available, total;
 	private JList<String> resultsList;
 	private JList<String> shoppingList;
 	private DefaultListModel<String> resultsListModel, shoppingListModel;
@@ -38,6 +38,7 @@ public class WalmartSearchGui extends JFrame {
 	private LineBorder border;
 	private ImageIcon logo;
 	private Item[] items;
+	//private double totalCount;
 	//private int index;
 
 	public WalmartSearchGui() {
@@ -86,42 +87,47 @@ public class WalmartSearchGui extends JFrame {
 		// NOT FUNCTIONING.
 
 		/*
-		 * 
-		 * index = resultsList.getSelectedIndex();
-		 * 
-		 * resultsList.addListSelectionListener(new ListSelectionListener() {
-		 * 
-		 * @Override public void valueChanged(ListSelectionEvent le) { // index
-		 * = resultsList.getSelectedIndex();
-		 * 
-		 * if (index != -1 && !le.getValueIsAdjusting()) {
-		 * 
-		 * description.setText("Description: " +
-		 * items[index].getShortDescription()); available.setText("Available: "
-		 * + items[index].getAvailableOnline()); price.setText("Price: $" +
-		 * items[index].getSalePrice());
-		 * 
-		 * } else if (index == -1) { description.setText(
-		 * "Information unavailable. Not picking up clicked item in list."); }
-		 * 
-		 * } });
-		 */
+		index = resultsList.getSelectedIndex();
+
+		resultsList.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent le) {
+
+				// index = resultsList.getSelectedIndex();
+
+				if (index != -1 && !le.getValueIsAdjusting()) {
+
+					description.setText("Description: " + items[index].getShortDescription());
+					available.setText("Available: " + items[index].getAvailableOnline());
+					price.setText("Price: $" + items[index].getSalePrice());
+					totalCount += items[index].getSalePrice();
+					total.setText("Total shopping list cost: $");
+
+				} else if (index == -1) {
+					description.setText("Information unavailable. Not picking up clicked item in list.");
+				}
+
+			}
+		});
 		
-		
+		*/
+
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
-		//description = new JTextArea("Description: ");
+		// description = new JTextArea("Description: ");
 		description = new JTextArea("");
 		description.setLineWrap(true);
-		//price = new JTextArea("Price: ");
+		// price = new JTextArea("Price: ");
 		price = new JTextArea("");
-		price.setLineWrap(true);
-		//available = new JTextArea("Available: ");
+		// available = new JTextArea("Available: ");
 		available = new JTextArea("");
-		available.setLineWrap(true);
+		//total = new JTextArea("Total shopping list cost: $");
+		total = new JTextArea("");
 		description.setForeground(wmBlue);
 		price.setForeground(wmBlue);
 		available.setForeground(wmBlue);
+		total.setForeground(wmBlue);
 		productDetails.add(description);
 		productDetails.add(available);
 		productDetails.add(price);
