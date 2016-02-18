@@ -83,24 +83,49 @@ public class WalmartSearchGui extends JFrame {
 		resultsList.setVisibleRowCount(-1);
 
 		// set details when item in list is clicked:
+		// NOT FUNCTIONING PROPERLY
+
 		index = resultsList.getSelectedIndex();
 
 		resultsList.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent le) {
+				// index = resultsList.getSelectedIndex();
 
 				if (index != -1 && !le.getValueIsAdjusting()) {
+
 					description.setText("Description: " + items[index].getShortDescription());
 					available.setText("Available: " + items[index].getAvailableOnline());
 					price.setText("Price: $" + items[index].getSalePrice());
 
 				} else if (index == -1) {
-					description.setText("list selection not working properly");
+					description.setText("Information unavailable. Not picking up clicked item in list.");
 				}
 
 			}
 		});
+
+		/**
+		 * resultsList.addListSelectionListener(new ListSelectionListener() {
+		 * 
+		 * @Override public void valueChanged(ListSelectionEvent le) {
+		 * 
+		 *           index = resultsList.getSelectedIndex();
+		 * 
+		 *           if (index != -1 && !le.getValueIsAdjusting()) {
+		 * 
+		 *           description.setText("Description: " +
+		 *           items[index].getShortDescription()); available.setText(
+		 *           "Available: " + items[index].getAvailableOnline());
+		 *           price.setText("Price: $" + items[index].getSalePrice());
+		 * 
+		 *           } else if (index == -1) { description.setText(
+		 *           "list selection not working properly"); }
+		 * 
+		 *           } });
+		 * 
+		 */
 
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
@@ -182,7 +207,7 @@ public class WalmartSearchGui extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				// add to the list
+				// add to the shopping list
 				shoppingListModel.addElement(resultsList.getSelectedValue());
 			}
 
