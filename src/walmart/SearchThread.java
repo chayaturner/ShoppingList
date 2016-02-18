@@ -28,7 +28,8 @@ public class SearchThread extends Thread {
 			items = results.getItems();
 
 			for (int i = 0; i < items.length; i++) {
-				listModel.addElement(items[i].getName());
+				//listModel.addElement(items[i].getName());
+				listModel.addElement(items[i].toString());
 			}
 
 		} catch (IOException ex1) {

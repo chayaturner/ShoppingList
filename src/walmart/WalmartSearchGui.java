@@ -20,8 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
 
 public class WalmartSearchGui extends JFrame {
 
@@ -38,7 +38,7 @@ public class WalmartSearchGui extends JFrame {
 	private LineBorder border;
 	private ImageIcon logo;
 	private Item[] items;
-	private int index;
+	//private int index;
 
 	public WalmartSearchGui() {
 		setTitle("Walmart Search");
@@ -83,36 +83,41 @@ public class WalmartSearchGui extends JFrame {
 		resultsList.setVisibleRowCount(-1);
 
 		// set details when item in list is clicked:
-		// NOT FUNCTIONING PROPERLY
+		// NOT FUNCTIONING.
 
-		index = resultsList.getSelectedIndex();
-
-		resultsList.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent le) {
-				// index = resultsList.getSelectedIndex();
-
-				if (index != -1 && !le.getValueIsAdjusting()) {
-
-					description.setText("Description: " + items[index].getShortDescription());
-					available.setText("Available: " + items[index].getAvailableOnline());
-					price.setText("Price: $" + items[index].getSalePrice());
-
-				} else if (index == -1) {
-					description.setText("Information unavailable. Not picking up clicked item in list.");
-				}
-
-			}
-		});
-
+		/*
+		 * 
+		 * index = resultsList.getSelectedIndex();
+		 * 
+		 * resultsList.addListSelectionListener(new ListSelectionListener() {
+		 * 
+		 * @Override public void valueChanged(ListSelectionEvent le) { // index
+		 * = resultsList.getSelectedIndex();
+		 * 
+		 * if (index != -1 && !le.getValueIsAdjusting()) {
+		 * 
+		 * description.setText("Description: " +
+		 * items[index].getShortDescription()); available.setText("Available: "
+		 * + items[index].getAvailableOnline()); price.setText("Price: $" +
+		 * items[index].getSalePrice());
+		 * 
+		 * } else if (index == -1) { description.setText(
+		 * "Information unavailable. Not picking up clicked item in list."); }
+		 * 
+		 * } });
+		 */
+		
+		
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
-		description = new JTextArea("Description: ");
+		//description = new JTextArea("Description: ");
+		description = new JTextArea("");
 		description.setLineWrap(true);
-		price = new JTextArea("Price: ");
+		//price = new JTextArea("Price: ");
+		price = new JTextArea("");
 		price.setLineWrap(true);
-		available = new JTextArea("Available: ");
+		//available = new JTextArea("Available: ");
+		available = new JTextArea("");
 		available.setLineWrap(true);
 		description.setForeground(wmBlue);
 		price.setForeground(wmBlue);
@@ -155,9 +160,9 @@ public class WalmartSearchGui extends JFrame {
 				// reset old searches
 				resultsListModel.clear();
 
-				description.setText("Description: ");
-				price.setText("Price: ");
-				available.setText("Available: ");
+				//description.setText("Description: ");
+				//price.setText("Price: ");
+				//available.setText("Available: ");
 
 				// get a new search result list, set items.
 				Thread thread = new SearchThread(searchInput, resultsListModel, items);
