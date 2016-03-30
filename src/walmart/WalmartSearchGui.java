@@ -24,12 +24,12 @@ public class WalmartSearchGui extends JFrame {
 		setLayout(new BorderLayout());
 		add(components, BorderLayout.CENTER);
 		
-
+setVisible(true);
 	}
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new WalmartModule());
 		WalmartSearchGui walmartGui = injector.getInstance(WalmartSearchGui.class);
-	walmartGui.setVisible(true);
+
 	}
 }
