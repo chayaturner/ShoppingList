@@ -40,6 +40,8 @@ public class WalmartComponents extends Container{
 		Color wmOrange = new Color(240, 160, 0);
 		Color lightBlue = new Color(173, 216, 230);
 		border = new LineBorder(Color.BLACK);
+		
+		setLayout(new BorderLayout());
 
 		// CENTER
 		centerPanel = new JPanel();
