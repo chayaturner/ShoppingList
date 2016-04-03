@@ -34,8 +34,10 @@ public class SearchThread extends Thread {
 
 		} catch (IOException ex1) {
 			searchInput.setText("");
+			System.out.println("ERROR!!");
 		} catch (NullPointerException ex2) {
 			listModel.addElement("Reenter item search"); // invalid searches
+			System.out.println("ERROR2");
 		}
 	}
 
