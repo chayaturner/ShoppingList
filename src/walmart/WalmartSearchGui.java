@@ -11,8 +11,6 @@ public class WalmartSearchGui extends JFrame {
 
 	private static final long serialVersionUID = 1L; // default
 
-	// private double totalCount;
-	// private int index;
 
 	@Inject
 	public WalmartSearchGui(WalmartComponents components) {

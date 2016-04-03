@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,28 +26,29 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 
-public class WalmartComponents extends Container{
+public class WalmartComponents extends Container {
 
 	private JLabel search, logoLabel;
 	private JTextArea description, price, available, total;
 	private JList<Item> resultsList;
 	private JList<Item> shoppingList;
-	private DefaultListModel<Item> resultsListModel, shoppingListModel;
+	private DefaultListModel<Item> shoppingListModel;
 	private JButton searchButton, addButton;
 	private JTextField searchInput;
-	private JPanel topPanel, bottomPanel, centerPanel, searchPanel, productDetails, resultsPanel;
+	private JPanel topPanel, bottomPanel, centerPanel, searchPanel,
+			productDetails, resultsPanel;
 	private LineBorder border;
 	private ImageIcon logo;
 	private Item[] items;
 	private SearchThread thread;
-	
+
 	@Inject
-	public WalmartComponents(){
+	public WalmartComponents() {
 		Color wmBlue = new Color(65, 105, 250);
 		Color wmOrange = new Color(240, 160, 0);
 		Color lightBlue = new Color(173, 216, 230);
 		border = new LineBorder(Color.BLACK);
-		
+
 		setLayout(new BorderLayout());
 
 		// CENTER
@@ -59,64 +62,27 @@ public class WalmartComponents extends Container{
 		shoppingList.setBackground(new Color(255, 231, 186));
 		shoppingList.setPreferredSize(new Dimension(200, Short.MAX_VALUE));
 		shoppingList.setMaximumSize(new Dimension(200, Short.MAX_VALUE));
-		String title = "   SHOPPING LIST!";
-		//shoppingListModel.addElement(title);
-		//shoppingListModel.addElement("____________________________");
 		shoppingList.setBorder(border);
 		centerPanel.add(shoppingList);
-
 		resultsPanel = new JPanel(new GridLayout(2, 1));
 		resultsPanel.setBackground(lightBlue);
-
-		resultsListModel = new DefaultListModel<Item>();
-		resultsList = new JList<Item>(resultsListModel);
+		resultsList = new JList<Item>();
 		resultsList.setForeground(new Color(0, 0, 139));
 		resultsList.setBackground(lightBlue);
 		resultsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultsList.setLayoutOrientation(JList.VERTICAL);
 		resultsList.setVisibleRowCount(-1);
-
-		// set details when item in list is clicked:
-		// NOT FUNCTIONING.
-
-		/*
-		index = resultsList.getSelectedIndex();
-
-		resultsList.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent le) {
-
-				// index = resultsList.getSelectedIndex();
-
-				if (index != -1 && !le.getValueIsAdjusting()) {
-
-					description.setText("Description: " + items[index].getShortDescription());
-					available.setText("Available: " + items[index].getAvailableOnline());
-					price.setText("Price: $" + items[index].getSalePrice());
-					totalCount += items[index].getSalePrice();
-					total.setText("Total shopping list cost: $");
-
-				} else if (index == -1) {
-					description.setText("Information unavailable. Not picking up clicked item in list.");
-				}
-
-			}
-		});
-		
-		*/
-
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
-		// description = new JTextArea("Description: ");
 		description = new JTextArea("");
 		description.setLineWrap(true);
-		// price = new JTextArea("Price: ");
+		description.setEditable(false);
 		price = new JTextArea("");
-		// available = new JTextArea("Available: ");
+		price.setEditable(false);
 		available = new JTextArea("");
-		//total = new JTextArea("Total shopping list cost: $");
+		available.setEditable(false);
 		total = new JTextArea("");
+		total.setEditable(false);
 		description.setForeground(wmBlue);
 		price.setForeground(wmBlue);
 		available.setForeground(wmBlue);
@@ -138,6 +104,8 @@ public class WalmartComponents extends Container{
 		searchInput = new JTextField("                                   ");
 		searchInput.setBorder(new LineBorder(wmBlue));
 		searchInput.setForeground(wmBlue);
+		addEnterKeyListener();
+
 		logo = new ImageIcon("logo.png");
 		logoLabel = new JLabel(logo);
 		searchButton = new JButton("Search");
@@ -149,26 +117,7 @@ public class WalmartComponents extends Container{
 		searchPanel.add(searchInput);
 		searchPanel.add(searchButton);
 
-		searchButton.addActionListener(new AbstractAction() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// reset old searches
-				resultsListModel.clear();
-
-				//description.setText("Description: ");
-				//price.setText("Price: ");
-				//available.setText("Available: ");
-
-				// get a new search result list, set items.
-				thread = new SearchThread(searchInput, resultsList, items);
-				thread.start();
-
-			}
-		});
+		AddSearchActionListener();
 
 		topPanel.add(logoLabel);
 		topPanel.add(searchPanel);
@@ -183,23 +132,12 @@ public class WalmartComponents extends Container{
 		addButton.setBackground(wmOrange);
 		bottomPanel.add(addButton);
 
-		addButton.addActionListener(new AbstractAction() {
+		AddItemActionListener();
 
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// add to the shopping list
-				shoppingListModel.addElement(resultsList.getSelectedValue());
-			}
-
-		});
-		
 		MouseListener mouseListener = new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 1) {
+				if (e.getClickCount() == 2) {
 
 					int index = resultsList.locationToIndex(e.getPoint());
 					items = thread.getItems();
@@ -209,5 +147,71 @@ public class WalmartComponents extends Container{
 			}
 		};
 		resultsList.addMouseListener(mouseListener);
+	}
+
+	private void AddItemActionListener() {
+		addButton.addActionListener(new AbstractAction() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// add to the shopping list
+				shoppingListModel.addElement(resultsList.getSelectedValue());
+
+			}
+
+		});
+	}
+
+	private void AddSearchActionListener() {
+		searchButton.addActionListener(new AbstractAction() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// reset old searches
+				resultsList.clearSelection();
+
+				// get a new search result list, set items.
+				thread = new SearchThread(searchInput, resultsList, items);
+				thread.start();
+
+			}
+		});
+	}
+
+	private void addEnterKeyListener() {
+		searchInput.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					resultsList.clearSelection();
+
+					// get a new search result list, set items.
+					thread = new SearchThread(searchInput, resultsList, items);
+					thread.start();
+
+				}
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+			}
+
+		}
+
+		);
 	}
 }

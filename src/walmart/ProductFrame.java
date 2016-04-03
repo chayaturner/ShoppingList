@@ -20,7 +20,7 @@ public class ProductFrame extends JFrame {
 
 		setTitle("Walmart Search");
 		setSize(900, 700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 
 		setLayout(new BorderLayout());
