@@ -24,7 +24,7 @@ public class Item {
 		return availableOnline;
 	}
 
-	public String mediumImage(){
+	public String getMediumImage(){
 		return mediumImage;
 	}
 	

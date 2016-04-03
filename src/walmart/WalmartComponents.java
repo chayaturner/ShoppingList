@@ -6,6 +6,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.inject.Inject;
 import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
@@ -24,9 +28,9 @@ public class WalmartComponents extends Container{
 
 	private JLabel search, logoLabel;
 	private JTextArea description, price, available, total;
-	private JList<String> resultsList;
-	private JList<String> shoppingList;
-	private DefaultListModel<String> resultsListModel, shoppingListModel;
+	private JList<Item> resultsList;
+	private JList<Item> shoppingList;
+	private DefaultListModel<Item> resultsListModel, shoppingListModel;
 	private JButton searchButton, addButton;
 	private JTextField searchInput;
 	private JPanel topPanel, bottomPanel, centerPanel, searchPanel, productDetails, resultsPanel;
@@ -48,23 +52,23 @@ public class WalmartComponents extends Container{
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
 		centerPanel.setBackground(lightBlue);
 
-		shoppingListModel = new DefaultListModel<String>();
-		shoppingList = new JList<String>(shoppingListModel);
+		shoppingListModel = new DefaultListModel<Item>();
+		shoppingList = new JList<Item>(shoppingListModel);
 		shoppingList.setForeground(wmBlue);
 		shoppingList.setBackground(new Color(255, 231, 186));
 		shoppingList.setPreferredSize(new Dimension(200, Short.MAX_VALUE));
 		shoppingList.setMaximumSize(new Dimension(200, Short.MAX_VALUE));
 		String title = "   SHOPPING LIST!";
-		shoppingListModel.addElement(title);
-		shoppingListModel.addElement("____________________________");
+		//shoppingListModel.addElement(title);
+		//shoppingListModel.addElement("____________________________");
 		shoppingList.setBorder(border);
 		centerPanel.add(shoppingList);
 
 		resultsPanel = new JPanel(new GridLayout(2, 1));
 		resultsPanel.setBackground(lightBlue);
 
-		resultsListModel = new DefaultListModel<String>();
-		resultsList = new JList<String>(resultsListModel);
+		resultsListModel = new DefaultListModel<Item>();
+		resultsList = new JList<Item>(resultsListModel);
 		resultsList.setForeground(new Color(0, 0, 139));
 		resultsList.setBackground(lightBlue);
 		resultsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -159,7 +163,7 @@ public class WalmartComponents extends Container{
 				//available.setText("Available: ");
 
 				// get a new search result list, set items.
-				Thread thread = new SearchThread(searchInput, resultsListModel, items);
+				Thread thread = new SearchThread(searchInput, resultsList, items);
 				thread.start();
 
 			}
@@ -190,5 +194,17 @@ public class WalmartComponents extends Container{
 			}
 
 		});
+		
+		MouseListener mouseListener = new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+
+					int index = resultsList.locationToIndex(e.getPoint());
+					new ProductFrame(items[index+1]).setVisible(true);
+				}
+			}
+		};
+		resultsList.addMouseListener(mouseListener);
 	}
 }
