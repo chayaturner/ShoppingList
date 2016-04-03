@@ -12,8 +12,8 @@ public class SearchThread extends Thread {
 	private JList<Item> listModel;
 	private Item[] items;
 
-	public SearchThread(JTextField searchInput,
-			JList<Item> listModel, Item[] items) {
+	public SearchThread(JTextField searchInput, JList<Item> listModel,
+			Item[] items) {
 		this.searchInput = searchInput;
 		this.listModel = listModel;
 		this.items = items;
@@ -29,7 +29,7 @@ public class SearchThread extends Thread {
 			SearchResults results = connection
 					.createWalmartConnection(searchInput.getText().trim());
 			items = results.getItems();
-			
+
 			listModel.setListData(items);
 
 		} catch (IOException ex1) {
@@ -39,4 +39,7 @@ public class SearchThread extends Thread {
 		}
 	}
 
+	public Item[] getItems() {
+		return this.items;
+	}
 }

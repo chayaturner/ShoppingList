@@ -37,6 +37,7 @@ public class WalmartComponents extends Container{
 	private LineBorder border;
 	private ImageIcon logo;
 	private Item[] items;
+	private SearchThread thread;
 	
 	@Inject
 	public WalmartComponents(){
@@ -163,7 +164,7 @@ public class WalmartComponents extends Container{
 				//available.setText("Available: ");
 
 				// get a new search result list, set items.
-				Thread thread = new SearchThread(searchInput, resultsList, items);
+				thread = new SearchThread(searchInput, resultsList, items);
 				thread.start();
 
 			}
@@ -201,7 +202,9 @@ public class WalmartComponents extends Container{
 				if (e.getClickCount() == 1) {
 
 					int index = resultsList.locationToIndex(e.getPoint());
-					new ProductFrame(items[index+1]).setVisible(true);
+					items = thread.getItems();
+					System.out.println(items[index]);
+					new ProductFrame(items[index]).setVisible(true);
 				}
 			}
 		};

@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ProductFrame extends JFrame {
-	
+
 	private JLabel imageLabel;
 
 	public ProductFrame(Item item) {
@@ -26,8 +26,8 @@ public class ProductFrame extends JFrame {
 		setLayout(new BorderLayout());
 
 		JPanel center = new JPanel(new BorderLayout());
-		
-		URL imageURL;
+
+		URL imageURL = null;
 		Image image = null;
 		try {
 			imageURL = new URL(item.getMediumImage());
@@ -35,8 +35,7 @@ public class ProductFrame extends JFrame {
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
