@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -41,9 +43,12 @@ public class WalmartComponents extends Container {
 	private ImageIcon logo;
 	private Item[] items;
 	private SearchThread thread;
+	private Double totalPrice;
+	private JLabel displayTotal;
 
 	@Inject
 	public WalmartComponents() {
+		Font font =new Font("Arial", Font.BOLD, 16);
 		Color wmBlue = new Color(65, 105, 250);
 		Color wmOrange = new Color(240, 160, 0);
 		Color lightBlue = new Color(173, 216, 230);
@@ -52,6 +57,7 @@ public class WalmartComponents extends Container {
 		setLayout(new BorderLayout());
 
 		// CENTER
+		this.totalPrice=0.0;
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
 		centerPanel.setBackground(lightBlue);
@@ -63,6 +69,7 @@ public class WalmartComponents extends Container {
 		shoppingList.setPreferredSize(new Dimension(200, Short.MAX_VALUE));
 		shoppingList.setMaximumSize(new Dimension(200, Short.MAX_VALUE));
 		shoppingList.setBorder(border);
+		shoppingList.setFont(font);
 		centerPanel.add(shoppingList);
 		resultsPanel = new JPanel(new GridLayout(2, 1));
 		resultsPanel.setBackground(lightBlue);
@@ -72,6 +79,7 @@ public class WalmartComponents extends Container {
 		resultsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultsList.setLayoutOrientation(JList.VERTICAL);
 		resultsList.setVisibleRowCount(-1);
+		resultsList.setFont(font);
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
 		description = new JTextArea("");
@@ -124,13 +132,19 @@ public class WalmartComponents extends Container {
 		add(topPanel, BorderLayout.NORTH);
 
 		// SOUTH
-		bottomPanel = new JPanel();
+		bottomPanel = new JPanel(new BorderLayout());
 		bottomPanel.setBackground(lightBlue);
 		add(bottomPanel, BorderLayout.SOUTH);
 		addButton = new JButton("Like it? Add to shopping list!");
 		addButton.setForeground(Color.BLUE);
 		addButton.setBackground(wmOrange);
-		bottomPanel.add(addButton);
+		addButton.setMaximumSize(new Dimension(300,35));
+		displayTotal=new JLabel();
+		displayTotal.setFont(font);
+		displayTotal.setForeground(Color.blue);
+		displayTotal.setText("            TOTAL : $0.0");
+		bottomPanel.add(displayTotal, BorderLayout.NORTH);
+		bottomPanel.add(addButton, BorderLayout.CENTER);
 
 		AddItemActionListener();
 
@@ -158,8 +172,11 @@ public class WalmartComponents extends Container {
 			public void actionPerformed(ActionEvent e) {
 
 				// add to the shopping list
-				shoppingListModel.addElement(resultsList.getSelectedValue());
-
+				Item selected=resultsList.getSelectedValue();
+				shoppingListModel.addElement(selected);
+					totalPrice+=selected.getSalePrice();
+					displayTotal.setText("          TOTAL: $"+totalPrice);
+					
 			}
 
 		});

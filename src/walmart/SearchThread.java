@@ -29,7 +29,6 @@ public class SearchThread extends Thread {
 			SearchResults results = connection
 					.createWalmartConnection(searchInput.getText().trim());
 			items = results.getItems();
-
 			listModel.setListData(items);
 
 		} catch (IOException ex1) {
@@ -38,6 +37,8 @@ public class SearchThread extends Thread {
 			searchInput.setText("Renenter Search");
 		}
 	}
+
+	
 
 	public Item[] getItems() {
 		return this.items;
