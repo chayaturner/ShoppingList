@@ -154,13 +154,30 @@ public class WalmartComponents extends Container {
 				if (e.getClickCount() == 2) {
 
 					int index = resultsList.locationToIndex(e.getPoint());
+					
 					items = thread.getItems();
 					System.out.println(items[index]);
 					new ProductFrame(items[index]).setVisible(true);
 				}
 			}
 		};
+		
 		resultsList.addMouseListener(mouseListener);
+
+		MouseListener mouseListenerList = new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+
+					int index = shoppingList.locationToIndex(e.getPoint());
+					
+					items = thread.getItems();
+					System.out.println(items[index]);
+					new ProductFrame(items[index]).setVisible(true);
+				}
+			}
+		};
+		shoppingList.addMouseListener(mouseListenerList);
 	}
 
 	private void AddItemActionListener() {
@@ -175,13 +192,14 @@ public class WalmartComponents extends Container {
 				Item selected=resultsList.getSelectedValue();
 				shoppingListModel.addElement(selected);
 					totalPrice+=selected.getSalePrice();
-					displayTotal.setText("          TOTAL: $"+totalPrice);
+					displayTotal.setText("          TOTAL: $" + String.format("%.2f", totalPrice));
 					
 			}
 
 		});
 	}
 
+	//user can click on button
 	private void AddSearchActionListener() {
 		searchButton.addActionListener(new AbstractAction() {
 
@@ -200,7 +218,8 @@ public class WalmartComponents extends Container {
 			}
 		});
 	}
-
+	
+	//or press enter
 	private void addEnterKeyListener() {
 		searchInput.addKeyListener(new KeyListener() {
 
