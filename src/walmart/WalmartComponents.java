@@ -31,7 +31,6 @@ import javax.swing.border.LineBorder;
 public class WalmartComponents extends Container {
 
 	private JLabel search, logoLabel;
-	private JTextArea description, price, available, total;
 	private JList<Item> resultsList;
 	private JList<Item> shoppingList;
 	private DefaultListModel<Item> shoppingListModel;
@@ -48,7 +47,7 @@ public class WalmartComponents extends Container {
 
 	@Inject
 	public WalmartComponents() {
-		Font font =new Font("Arial", Font.BOLD, 16);
+		Font font = new Font("Arial", Font.BOLD, 16);
 		Color wmBlue = new Color(65, 105, 250);
 		Color wmOrange = new Color(240, 160, 0);
 		Color lightBlue = new Color(173, 216, 230);
@@ -57,7 +56,7 @@ public class WalmartComponents extends Container {
 		setLayout(new BorderLayout());
 
 		// CENTER
-		this.totalPrice=0.0;
+		this.totalPrice = 0.0;
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
 		centerPanel.setBackground(lightBlue);
@@ -82,22 +81,6 @@ public class WalmartComponents extends Container {
 		resultsList.setFont(font);
 		productDetails = new JPanel(new GridLayout(4, 1));
 		productDetails.setBackground(lightBlue);
-		description = new JTextArea("");
-		description.setLineWrap(true);
-		description.setEditable(false);
-		price = new JTextArea("");
-		price.setEditable(false);
-		available = new JTextArea("");
-		available.setEditable(false);
-		total = new JTextArea("");
-		total.setEditable(false);
-		description.setForeground(wmBlue);
-		price.setForeground(wmBlue);
-		available.setForeground(wmBlue);
-		total.setForeground(wmBlue);
-		productDetails.add(description);
-		productDetails.add(available);
-		productDetails.add(price);
 		resultsPanel.add(resultsList);
 		resultsPanel.add(productDetails);
 		centerPanel.add(resultsPanel);
@@ -112,6 +95,7 @@ public class WalmartComponents extends Container {
 		searchInput = new JTextField("                                   ");
 		searchInput.setBorder(new LineBorder(wmBlue));
 		searchInput.setForeground(wmBlue);
+
 		addEnterKeyListener();
 
 		logo = new ImageIcon("logo.png");
@@ -138,8 +122,8 @@ public class WalmartComponents extends Container {
 		addButton = new JButton("Like it? Add to shopping list!");
 		addButton.setForeground(Color.BLUE);
 		addButton.setBackground(wmOrange);
-		addButton.setMaximumSize(new Dimension(300,35));
-		displayTotal=new JLabel();
+		addButton.setMaximumSize(new Dimension(300, 35));
+		displayTotal = new JLabel();
 		displayTotal.setFont(font);
 		displayTotal.setForeground(Color.blue);
 		displayTotal.setText("            TOTAL : $0.0");
@@ -154,14 +138,14 @@ public class WalmartComponents extends Container {
 				if (e.getClickCount() == 2) {
 
 					int index = resultsList.locationToIndex(e.getPoint());
-					
+
 					items = thread.getItems();
 					System.out.println(items[index]);
 					new ProductFrame(items[index]).setVisible(true);
 				}
 			}
 		};
-		
+
 		resultsList.addMouseListener(mouseListener);
 
 		MouseListener mouseListenerList = new MouseAdapter() {
@@ -170,7 +154,7 @@ public class WalmartComponents extends Container {
 				if (e.getClickCount() == 2) {
 
 					int index = shoppingList.locationToIndex(e.getPoint());
-					
+
 					items = thread.getItems();
 					System.out.println(items[index]);
 					new ProductFrame(items[index]).setVisible(true);
@@ -189,17 +173,18 @@ public class WalmartComponents extends Container {
 			public void actionPerformed(ActionEvent e) {
 
 				// add to the shopping list
-				Item selected=resultsList.getSelectedValue();
+				Item selected = resultsList.getSelectedValue();
 				shoppingListModel.addElement(selected);
-					totalPrice+=selected.getSalePrice();
-					displayTotal.setText("          TOTAL: $" + String.format("%.2f", totalPrice));
-					
+				totalPrice += selected.getSalePrice();
+				displayTotal.setText("          TOTAL: $"
+						+ String.format("%.2f", totalPrice));
+
 			}
 
 		});
 	}
 
-	//user can click on button
+	// user can click on button
 	private void AddSearchActionListener() {
 		searchButton.addActionListener(new AbstractAction() {
 
@@ -218,8 +203,8 @@ public class WalmartComponents extends Container {
 			}
 		});
 	}
-	
-	//or press enter
+
+	// or press enter
 	private void addEnterKeyListener() {
 		searchInput.addKeyListener(new KeyListener() {
 
