@@ -30,7 +30,7 @@ import javax.swing.border.LineBorder;
 
 public class WalmartComponents extends Container {
 
-	private JLabel search, logoLabel, shoppingCart;
+	private JLabel logoLabel, shoppingCart;
 	private JList<Item> resultsList;
 	private JList<Item> shoppingList;
 	private DefaultListModel<Item> shoppingListModel;
@@ -87,8 +87,7 @@ public class WalmartComponents extends Container {
 
 		add(centerPanel, BorderLayout.CENTER);
 
-		
-		// NORTH
+
 
 		topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,25,3));
 		topPanel.setBackground(Color.WHITE);
