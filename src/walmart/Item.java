@@ -6,7 +6,7 @@ public class Item {
 	private double salePrice;
 	private String shortDescription;
 	private boolean availableOnline;
-	private String mediumImage;
+	private String thumbnailImage;
 
 	public String getName() {
 		return name;
@@ -24,14 +24,15 @@ public class Item {
 		return availableOnline;
 	}
 
-	public String getMediumImage(){
-		return mediumImage;
-	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(name);
 		return builder.toString();
+	}
+
+	public String getThumbnailImage() {
+		return thumbnailImage;
 	}
 }
