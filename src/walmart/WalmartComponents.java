@@ -30,7 +30,7 @@ import javax.swing.border.LineBorder;
 
 public class WalmartComponents extends Container {
 
-	private JLabel search, logoLabel;
+	private JLabel search, logoLabel, shoppingCart;
 	private JList<Item> resultsList;
 	private JList<Item> shoppingList;
 	private DefaultListModel<Item> shoppingListModel;
@@ -87,34 +87,76 @@ public class WalmartComponents extends Container {
 
 		add(centerPanel, BorderLayout.CENTER);
 
+		
 		// NORTH
-		topPanel = new JPanel();
+
+		topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,25,3));
 		topPanel.setBackground(Color.WHITE);
-		search = new JLabel("Search Walmart.com:");
-		search.setForeground(wmOrange);
-		searchInput = new JTextField("                                   ");
-		searchInput.setBorder(new LineBorder(wmBlue));
-		searchInput.setForeground(wmBlue);
-
-		addEnterKeyListener();
-
 		logo = new ImageIcon("logo.png");
 		logoLabel = new JLabel(logo);
+		topPanel.add(logoLabel);
+		
+		searchPanel = new JPanel(new GridLayout(2,6));
+		searchPanel.setBackground(Color.WHITE);
+		searchInput = new JTextField("",12);
+		searchInput.setHorizontalAlignment(JTextField.CENTER);
+		searchInput.setBorder(new LineBorder(wmBlue));
+		searchInput.setForeground(wmBlue);
+		searchInput.setMaximumSize(new Dimension(300, 35));	
+
+		addEnterKeyListener();
 		searchButton = new JButton("Search");
 		searchButton.setForeground(wmOrange);
 		searchButton.setSize(50, 30);
-		searchPanel = new JPanel(new GridLayout(3, 1));
-		searchPanel.setBackground(Color.WHITE);
-		searchPanel.add(search);
+		searchButton.setMaximumSize(new Dimension(300, 35));
 		searchPanel.add(searchInput);
 		searchPanel.add(searchButton);
+		shoppingCart=new JLabel();
+		shoppingCart.setIcon(new ImageIcon("shoppingCart.png"));
+		shoppingCart.setMaximumSize(new Dimension(300, 35));
+	
+		shoppingCart.addMouseListener(new MouseListener(){
 
-		AddSearchActionListener();
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new ShoppingCartFrame().setVisible(true);
+				
+			}
 
-		topPanel.add(logoLabel);
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				
+			}
+			
+		});
+		
+
 		topPanel.add(searchPanel);
+		topPanel.add(shoppingCart);
+		
+		
+	//	search = new JLabel("Search Walmart.com:");
+		//search.setForeground(wmOrange);
+	
 		add(topPanel, BorderLayout.NORTH);
 
+
+		AddSearchActionListener();
 		// SOUTH
 		bottomPanel = new JPanel(new BorderLayout());
 		bottomPanel.setBackground(lightBlue);
