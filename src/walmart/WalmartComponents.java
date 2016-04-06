@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -93,6 +92,7 @@ public class WalmartComponents extends Container {
 		search = new JLabel("Search Walmart.com:");
 		search.setForeground(wmOrange);
 		searchInput = new JTextField("                                   ");
+		searchInput.setFont(font);
 		searchInput.setBorder(new LineBorder(wmBlue));
 		searchInput.setForeground(wmBlue);
 
@@ -122,8 +122,11 @@ public class WalmartComponents extends Container {
 		addButton = new JButton("Like it? Add to shopping list!");
 		addButton.setForeground(Color.BLUE);
 		addButton.setBackground(wmOrange);
+
+		addButton.setFont(new Font("Arial", Font.BOLD, 21));
 		addButton.setMaximumSize(new Dimension(300, 35));
 		displayTotal = new JLabel();
+
 		displayTotal.setFont(font);
 		displayTotal.setForeground(Color.blue);
 		displayTotal.setText("            TOTAL : $0.0");
