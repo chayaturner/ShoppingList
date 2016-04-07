@@ -17,12 +17,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class ProductFrame extends JFrame {
 
 	private JLabel imageLabel;
-	private JTextArea area;
 	private JLabel name;
 	private JLabel desc;
 	private JLabel price;
@@ -34,6 +32,7 @@ public class ProductFrame extends JFrame {
 		setTitle("PRODUCT");
 		setSize(400, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setLocationRelativeTo(null);
 
 		Container container = getContentPane();
