@@ -76,6 +76,7 @@ public class WalmartComponents extends Container {
 		MouseListener mouseListener = resultsMouseListener();
 		resultsList.addMouseListener(mouseListener);
 		
+		
 		productDetails = new JPanel(new GridLayout(2, 1));
 		productDetails.setBackground(lightBlue);
 		
