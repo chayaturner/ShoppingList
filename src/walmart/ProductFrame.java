@@ -22,7 +22,6 @@ import javax.swing.JTextArea;
 public class ProductFrame extends JFrame {
 
 	private JLabel imageLabel;
-	private JTextArea area;
 	private JLabel name;
 	private JLabel desc;
 	private JLabel price;
