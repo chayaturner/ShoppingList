@@ -16,7 +16,7 @@ public class WalmartConnection {
 
 		// connect to walmart online
 		URL url = new URL("http://api.walmartlabs.com/v1/search?apiKey=rfdvz63d3vvqwcwpc2tvh6zr&lsPublisherId"
-				+ "=AhuvaFoxman&query=" + search);
+				+ "=AhuvaFoxman&numItems=25&query=" + search);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 		// request
