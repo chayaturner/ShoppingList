@@ -41,9 +41,10 @@ public class WalmartComponents extends Container {
 	private ImageIcon logo;
 	private Item[] items;
 	private SearchThread thread;
-	private Double totalPrice;
+	private double totalPrice=0.0;
 	private int numInCart = 0; //default to zero
-
+	private  WalmartComponents components;
+	
 	@Inject
 	public WalmartComponents() {
 		Font font = new Font("Arial", Font.BOLD, 16);
@@ -54,7 +55,7 @@ public class WalmartComponents extends Container {
 
 		setLayout(new BorderLayout());
 
-		this.totalPrice = 0.0;
+		this.components=this;
 		this.itemsInCart = new ArrayList<Item>();
 
 		centerPanel = new JPanel();
@@ -63,7 +64,6 @@ public class WalmartComponents extends Container {
 
 		shoppingList = new JList<Item>();
 		shoppingList.setFont(font);
-		shoppingListMouseListener();
 
 		resultsList = new JList<Item>();
 		resultsList.setForeground(darkBlue);
@@ -140,21 +140,12 @@ public class WalmartComponents extends Container {
 
 	}
 
-	private void shoppingListMouseListener() {
-		MouseListener mouseListenerList = new MouseAdapter() {
-
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-
-					int index = shoppingList.locationToIndex(e.getPoint());
-
-					items = thread.getItems();
-					System.out.println(items[index]);
-					new ProductFrame(items[index]).setVisible(true);
-				}
-			}
-		};
-		shoppingList.addMouseListener(mouseListenerList);
+	
+	public void setValues(int num, double price) {
+		this.numInCart = num;
+		this.totalPrice=price;
+		this.totalLabel.setText(""+numInCart);
+		
 	}
 
 	private MouseListener resultsMouseListener() {
@@ -178,7 +169,7 @@ public class WalmartComponents extends Container {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new ShoppingCartFrame(shoppingList, itemsInCart, totalPrice, numInCart)
+				new ShoppingCartFrame(shoppingList, itemsInCart, totalPrice, numInCart,  components)
 						.setVisible(true);
 			}
 
