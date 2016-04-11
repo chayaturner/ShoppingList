@@ -30,7 +30,7 @@ public class ProductFrame extends JFrame {
 	public ProductFrame(Item item) {
 
 		setTitle("PRODUCT");
-		setSize(400, 400);
+		setSize(500, 400);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -41,6 +41,7 @@ public class ProductFrame extends JFrame {
 		Font font = new Font("Berlin Sans FB", Font.PLAIN, 20);
 
 		JPanel north = new JPanel(new BorderLayout());
+		north.setBackground(Color.WHITE);
 		JPanel center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
 		center.setBackground(new Color(173, 216, 230));

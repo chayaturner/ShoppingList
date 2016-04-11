@@ -24,7 +24,6 @@ public class Item {
 		return availableOnline;
 	}
 
-	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
