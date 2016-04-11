@@ -59,7 +59,7 @@ public class WalmartComponents extends Container {
 		this.itemsInCart = new ArrayList<Item>();
 
 		centerPanel = new JPanel();
-		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.LINE_AXIS));
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 		centerPanel.setBackground(lightBlue);
 
 		shoppingList = new JList<Item>();
@@ -74,7 +74,7 @@ public class WalmartComponents extends Container {
 		MouseListener mouseListener = resultsMouseListener();
 		resultsList.addMouseListener(mouseListener);
 
-		centerPanel.add(resultsList);
+		centerPanel.add(resultsList, BorderLayout.NORTH);
 		add(centerPanel);
 		
 		JScrollPane pane = new JScrollPane(centerPanel);

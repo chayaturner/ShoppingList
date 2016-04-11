@@ -40,6 +40,7 @@ public class SearchThread extends Thread {
 		} catch (NullPointerException ex2) {
 			searchInput.setText("Renenter Search");
 		}
+		
 	}
 
 	public Item[] getItems() {
