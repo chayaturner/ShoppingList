@@ -3,6 +3,7 @@ package walmart;
 import java.io.IOException;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
 
@@ -11,12 +12,14 @@ public class SearchThread extends Thread {
 	private JTextField searchInput;
 	private JList<Item> listModel;
 	private Item[] items;
+	private JLabel defaultLabel;
 
 	public SearchThread(JTextField searchInput, JList<Item> listModel,
-			Item[] items) {
+			Item[] items, JLabel defaultLabel) {
 		this.searchInput = searchInput;
 		this.listModel = listModel;
 		this.items = items;
+		this.defaultLabel = defaultLabel;
 	}
 
 	@Override
@@ -29,6 +32,7 @@ public class SearchThread extends Thread {
 			SearchResults results = connection
 					.createWalmartConnection(searchInput.getText().trim());
 			items = results.getItems();
+			defaultLabel.setText("");
 			listModel.setListData(items);
 
 		} catch (IOException ex1) {
@@ -37,8 +41,6 @@ public class SearchThread extends Thread {
 			searchInput.setText("Renenter Search");
 		}
 	}
-
-	
 
 	public Item[] getItems() {
 		return this.items;

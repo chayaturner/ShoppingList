@@ -9,14 +9,15 @@ import java.net.URL;
 
 import com.google.gson.Gson;
 
-
 public class WalmartConnection {
 
-	public SearchResults createWalmartConnection(String search) throws IOException {
+	public SearchResults createWalmartConnection(String search)
+			throws IOException {
 
 		// connect to walmart online
-		URL url = new URL("http://api.walmartlabs.com/v1/search?apiKey=rfdvz63d3vvqwcwpc2tvh6zr&lsPublisherId"
-				+ "=AhuvaFoxman&numItems=25&query=" + search);
+		URL url = new URL(
+				"http://api.walmartlabs.com/v1/search?apiKey=rfdvz63d3vvqwcwpc2tvh6zr&lsPublisherId"
+						+ "=AhuvaFoxman&numItems=25&query=" + search);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
 		// request
