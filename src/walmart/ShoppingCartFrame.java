@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,6 +24,7 @@ public class ShoppingCartFrame extends JFrame {
 	private Double totalPrice;
 	private JLabel numInCart;
 	private int num;
+	private JButton remove;
 
 	public ShoppingCartFrame(JList<Item> shoppingList, ArrayList<Item> items,
 			Double totalPrice, int num) {
@@ -87,6 +89,9 @@ public class ShoppingCartFrame extends JFrame {
 		JPanel bottomPanel = new JPanel(new BorderLayout());
 		bottomPanel.setBackground(Color.decode("#FF9C00"));
 		bottomPanel.add(displayTotal, BorderLayout.CENTER);
+		
+		remove=new JButton("REMOVE FROM CART");
+		bottomPanel.add(remove, BorderLayout.EAST);
 		add(bottomPanel, BorderLayout.SOUTH);
 
 	}
