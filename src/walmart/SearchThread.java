@@ -35,10 +35,9 @@ public class SearchThread extends Thread {
 			defaultLabel.setText("");
 			listModel.setListData(items);
 
-		} catch (IOException ex1) {
-			searchInput.setText("");
 		} catch (NullPointerException ex2) {
 			searchInput.setText("Renenter Search");
+		
 		}
 		
 	}
