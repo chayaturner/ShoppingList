@@ -33,15 +33,19 @@ public class SearchThread extends Thread {
 					.createWalmartConnection(searchInput.getText().trim());
 			items = results.getItems();
 			defaultLabel.setText("");
-			listModel.setListData(items);
+			if (items != null) {
+				listModel.setListData(items);
+			} else {
+				searchInput.setText("INVALID ENTRY ");
 
+			}
 		} catch (NullPointerException ex2) {
 			searchInput.setText("Renenter Search");
-		
+
 		} catch (IOException ex1) {
 			searchInput.setText("");
 		}
-		
+
 	}
 
 	public Item[] getItems() {
