@@ -91,8 +91,8 @@ public class ShoppingCartFrame extends JFrame {
 		displayTotal.setBackground(lightBlue);
 		displayTotal.setText("            TOTAL : $0.0");
 
-		JPanel bottomPanel = new JPanel(
-				new FlowLayout(FlowLayout.CENTER, 50, 10));
+		JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 50,
+				10));
 		bottomPanel.setBackground(Color.decode("#FF9C00"));
 
 		remove = new JLabel("Remove Item", SwingConstants.CENTER);
@@ -100,7 +100,7 @@ public class ShoppingCartFrame extends JFrame {
 		remove.setForeground(Color.decode("#FF9C00"));
 		remove.setBackground(Color.BLUE);
 		remove.setOpaque(true);
-		remove.setPreferredSize(new Dimension(150,40));
+		remove.setPreferredSize(new Dimension(150, 40));
 		RemoveItemMouseListener();
 		bottomPanel.add(displayTotal);
 		bottomPanel.add(remove);

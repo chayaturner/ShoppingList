@@ -42,7 +42,7 @@ public class ProductFrame extends JFrame {
 
 		JPanel north = new JPanel(new BorderLayout());
 		north.setBackground(Color.WHITE);
-		JPanel center = new JPanel();
+		BackgroundPanel center = new BackgroundPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
 		center.setBackground(new Color(173, 216, 230));
 
@@ -77,13 +77,13 @@ public class ProductFrame extends JFrame {
 
 		name = new JLabel();
 		name.setAlignmentX(Component.CENTER_ALIGNMENT);
-		name.setForeground(Color.decode("#FF9C00"));
+		name.setForeground(Color.WHITE);
 		name.setFont(font);
 		name.setText(item.getName());
 
 		desc = new JLabel();
 		desc.setAlignmentX(Component.CENTER_ALIGNMENT);
-		desc.setForeground(Color.decode("#FF9C00"));
+		desc.setForeground(Color.WHITE);
 		desc.setFont(font);
 		desc.setText(item.getShortDescription());
 
@@ -95,7 +95,7 @@ public class ProductFrame extends JFrame {
 
 		availableOnline = new JLabel();
 		availableOnline.setAlignmentX(Component.CENTER_ALIGNMENT);
-		availableOnline.setForeground(Color.decode("#FF9C00"));
+		availableOnline.setForeground(Color.WHITE);
 		availableOnline.setFont(font);
 
 		String available = "Available Online";
