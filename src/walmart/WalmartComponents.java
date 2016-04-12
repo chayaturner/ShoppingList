@@ -9,6 +9,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -42,13 +44,13 @@ public class WalmartComponents extends Container {
 	private ImageIcon logo;
 	private Item[] items;
 	private SearchThread thread;
-	private double totalPrice=0.0;
-	private int numInCart = 0; //default to zero
-	private  WalmartComponents components;
-	
+	private double totalPrice = 0.0;
+	private int numInCart = 0; // default to zero
+	private WalmartComponents components;
+
 	@Inject
 	public WalmartComponents() {
-		Font font = new Font("Arial", Font.BOLD, 16);
+		Font font = new Font("Berlin Sans FB", Font.PLAIN, 20);
 		Color wmBlue = new Color(65, 105, 250);
 		Color wmOrange = new Color(240, 160, 0);
 		Color lightBlue = new Color(173, 216, 230);
@@ -56,7 +58,7 @@ public class WalmartComponents extends Container {
 
 		setLayout(new BorderLayout());
 
-		this.components=this;
+		this.components = this;
 		this.itemsInCart = new ArrayList<Item>();
 
 		centerPanel = new BackgroundPanel();
@@ -69,7 +71,8 @@ public class WalmartComponents extends Container {
 		resultsList = new JList<Item>();
 		resultsList.setForeground(Color.WHITE);
 		resultsList.setOpaque(false);
-		((javax.swing.DefaultListCellRenderer)resultsList.getCellRenderer()).setOpaque(false);
+		((javax.swing.DefaultListCellRenderer) resultsList.getCellRenderer())
+				.setOpaque(false);
 
 		resultsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultsList.setLayoutOrientation(JList.VERTICAL);
@@ -79,13 +82,13 @@ public class WalmartComponents extends Container {
 
 		centerPanel.add(resultsList, BorderLayout.NORTH);
 		add(centerPanel);
-		
+
 		JScrollPane pane = new JScrollPane(centerPanel);
 		pane.setOpaque(false);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		add(pane);
 
-		topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 3));
+		topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 16, 3));
 		topPanel.setBackground(Color.WHITE);
 
 		searchInput = new JTextField("", 10);
@@ -94,6 +97,7 @@ public class WalmartComponents extends Container {
 		searchInput.setBorder(new LineBorder(wmBlue));
 		searchInput.setForeground(wmBlue);
 		addEnterKeyListener();
+		addFocusListener();
 
 		logo = new ImageIcon("logo.png");
 		logoLabel = new JLabel(logo);
@@ -112,17 +116,17 @@ public class WalmartComponents extends Container {
 		shoppingCart = new JLabel();
 		shoppingCart.setIcon(new ImageIcon("cart.png"));
 		shoppingCartClick();
-		
+
 		defaultLabel = new JLabel("Results will display here.");
 		defaultLabel.setFont(new Font("Arial", Font.BOLD, 50));
 		defaultLabel.setForeground(Color.ORANGE);
 		defaultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		centerPanel.add(defaultLabel);
-		
+
 		totalLabel = new JLabel();
 		totalLabel.setFont(new Font("Arial", Font.BOLD, 25));
 		totalLabel.setForeground(darkBlue);
-		
+
 		topPanel.add(logoLabel);
 		topPanel.add(searchPanel);
 		topPanel.add(shoppingCart);
@@ -144,12 +148,11 @@ public class WalmartComponents extends Container {
 
 	}
 
-	
 	public void setValues(int num, double price) {
 		this.numInCart = num;
-		this.totalPrice=price;
-		this.totalLabel.setText(""+numInCart);
-		
+		this.totalPrice = price;
+		this.totalLabel.setText("" + numInCart);
+
 	}
 
 	private MouseListener resultsMouseListener() {
@@ -173,8 +176,8 @@ public class WalmartComponents extends Container {
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new ShoppingCartFrame(shoppingList, itemsInCart, totalPrice, numInCart,  components)
-						.setVisible(true);
+				new ShoppingCartFrame(shoppingList, itemsInCart, totalPrice,
+						numInCart, components).setVisible(true);
 			}
 
 			@Override
@@ -233,7 +236,8 @@ public class WalmartComponents extends Container {
 				resultsList.clearSelection();
 
 				// get a new search result list, set items.
-				thread = new SearchThread(searchInput, resultsList, items, defaultLabel);
+				thread = new SearchThread(searchInput, resultsList, items,
+						defaultLabel);
 				thread.start();
 
 			}
@@ -250,7 +254,8 @@ public class WalmartComponents extends Container {
 					resultsList.clearSelection();
 
 					// get a new search result list, set items.
-					thread = new SearchThread(searchInput, resultsList, items,defaultLabel);
+					thread = new SearchThread(searchInput, resultsList, items,
+							defaultLabel);
 					thread.start();
 
 				}
@@ -270,5 +275,21 @@ public class WalmartComponents extends Container {
 		}
 
 		);
+	}
+
+	private void addFocusListener() {
+		searchInput.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				searchInput.setText("");
+
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+			}
+
+		});
 	}
 }

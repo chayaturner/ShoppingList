@@ -2,7 +2,6 @@ package walmart;
 
 import java.io.IOException;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
@@ -36,7 +35,7 @@ public class SearchThread extends Thread {
 			if (items != null) {
 				listModel.setListData(items);
 			} else {
-				
+
 				Item[] defaultArray = new Item[5];
 				searchInput.setText("INVALID ENTRY ");
 				listModel.clearSelection();

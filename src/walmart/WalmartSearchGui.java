@@ -11,7 +11,6 @@ public class WalmartSearchGui extends JFrame {
 
 	private static final long serialVersionUID = 1L; // default
 
-
 	@Inject
 	public WalmartSearchGui(WalmartComponents components) {
 		setTitle("Walmart Search");
