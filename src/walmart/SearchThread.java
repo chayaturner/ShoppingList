@@ -38,6 +38,8 @@ public class SearchThread extends Thread {
 		} catch (NullPointerException ex2) {
 			searchInput.setText("Renenter Search");
 		
+		} catch (IOException ex1) {
+			searchInput.setText("");
 		}
 		
 	}
