@@ -37,7 +37,8 @@ public class WalmartComponents extends Container {
 	private ArrayList<Item> itemsInCart;
 	private JButton searchButton, addButton;
 	private JTextField searchInput;
-	private JPanel topPanel, bottomPanel, centerPanel, searchPanel;
+	private JPanel topPanel, bottomPanel, searchPanel;
+	private BackgroundPanel centerPanel;
 	private ImageIcon logo;
 	private Item[] items;
 	private SearchThread thread;
@@ -58,7 +59,7 @@ public class WalmartComponents extends Container {
 		this.components=this;
 		this.itemsInCart = new ArrayList<Item>();
 
-		centerPanel = new JPanel();
+		centerPanel = new BackgroundPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 		centerPanel.setBackground(lightBlue);
 
@@ -66,8 +67,10 @@ public class WalmartComponents extends Container {
 		shoppingList.setFont(font);
 
 		resultsList = new JList<Item>();
-		resultsList.setForeground(darkBlue);
-		resultsList.setBackground(lightBlue);
+		resultsList.setForeground(Color.WHITE);
+		resultsList.setOpaque(false);
+		((javax.swing.DefaultListCellRenderer)resultsList.getCellRenderer()).setOpaque(false);
+
 		resultsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		resultsList.setLayoutOrientation(JList.VERTICAL);
 		resultsList.setFont(font);
@@ -78,6 +81,7 @@ public class WalmartComponents extends Container {
 		add(centerPanel);
 		
 		JScrollPane pane = new JScrollPane(centerPanel);
+		pane.setOpaque(false);
 		pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		add(pane);
 
@@ -111,7 +115,7 @@ public class WalmartComponents extends Container {
 		
 		defaultLabel = new JLabel("Results will display here.");
 		defaultLabel.setFont(new Font("Arial", Font.BOLD, 50));
-		defaultLabel.setForeground(wmBlue);
+		defaultLabel.setForeground(Color.ORANGE);
 		defaultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		centerPanel.add(defaultLabel);
 		

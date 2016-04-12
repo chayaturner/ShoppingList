@@ -36,14 +36,19 @@ public class SearchThread extends Thread {
 			if (items != null) {
 				listModel.setListData(items);
 			} else {
+				
+				Item[] defaultArray = new Item[5];
 				searchInput.setText("INVALID ENTRY ");
+				listModel.clearSelection();
+				listModel.setListData(defaultArray);
 
 			}
 		} catch (NullPointerException ex2) {
 			searchInput.setText("Renenter Search");
 
-		} catch (IOException ex1) {
-			searchInput.setText("");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
