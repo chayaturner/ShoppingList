@@ -152,8 +152,9 @@ public class ShoppingCartFrame extends JFrame {
 					int removeItem = JOptionPane
 							.showConfirmDialog(
 									null,
-									"Are you sure you want to remove this item from your cart?",
-									null, JOptionPane.YES_NO_OPTION);
+									"Are you sure you want to remove \n         this item from your cart?",
+									null, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE
+									,new ImageIcon("JoptionPaneImage.png"));
 
 					if (removeItem == JOptionPane.YES_OPTION) {
 

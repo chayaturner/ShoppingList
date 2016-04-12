@@ -210,8 +210,8 @@ public class WalmartComponents extends Container {
 				Item selected = resultsList.getSelectedValue();
 				itemsInCart.add(selected);
 				totalPrice += selected.getSalePrice();
-
-			}
+				}
+			
 
 		});
 	}
